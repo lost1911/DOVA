@@ -4,7 +4,7 @@ import {
   ChevronLeft, ChevronRight, CircleHelp, ClipboardList, Clock3, Command,
   CreditCard, LayoutDashboard, LifeBuoy, Menu, Package, Plus, Search,
   Settings2, ShieldCheck, ShoppingBag, Sparkles, Store, Users, Wallet,
-  X, Zap
+  X, Zap, LockKeyhole, ArrowUpRight
 } from "lucide-react";
 
 type Section = "Visão geral" | "Aplicativos" | "Empresas" | "Pedidos" | "Produtos" | "Clientes" | "Planos" | "Configurações";
@@ -42,6 +42,57 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notice, setNotice] = useState(false);
   const [search, setSearch] = useState("");
+  const [showDashboard, setShowDashboard] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginNotice, setLoginNotice] = useState("");
+
+  if (!showDashboard) return <main className="entry-page">
+    <header className="entry-header">
+      <Brand />
+      <nav className="entry-nav"><a href="#como-funciona">Como funciona</a><a href="#para-quem">Para quem</a><a href="#sobre">Sobre a DOVA</a></nav>
+      <button className="entry-header-button" onClick={() => document.getElementById("login-email")?.focus()}>Acessar minha conta <ArrowUpRight size={15}/></button>
+    </header>
+    <section className="entry-hero">
+      <div className="entry-copy">
+        <div className="entry-kicker"><span className="live-dot"/> TECNOLOGIA QUE APROXIMA</div>
+        <h1>Seu negócio merece<br/><em>um app só dele.</em></h1>
+        <p className="entry-lead">Sua marca, seus produtos, seus clientes. Uma experiência digital feita para o jeito que sua empresa trabalha.</p>
+        <div className="entry-actions"><button className="entry-primary" onClick={() => document.getElementById("login-email")?.focus()}>Começar agora <ArrowRight size={17}/></button><a href="#como-funciona">Conheça a DOVA <span>↓</span></a></div>
+        <div className="entry-proof"><div className="proof-avatars"><span>F</span><span>P</span><span>D</span></div><span>Uma plataforma. Muitas possibilidades.<br/><strong>Cada empresa no seu próprio espaço.</strong></span></div>
+      </div>
+      <div className="entry-visual" aria-label="Exemplos ilustrativos de aplicativos de empresas">
+        <div className="visual-orbit orbit-one"></div><div className="visual-orbit orbit-two"></div>
+        <div className="visual-note"><span className="note-spark">✳</span><div><strong>Feito para sua marca</strong><small>Do primeiro toque ao pedido.</small></div></div>
+        <div className="phone-card">
+          <div className="phone-top"><span></span><span></span><span></span></div>
+          <div className="phone-brand"><div className="mini-store-mark">b</div><div><strong>boa vida</strong><small>FARMÁCIA</small></div><span className="phone-menu">•••</span></div>
+          <div className="phone-banner"><small>CUIDAR FAZ BEM</small><strong>Seu cuidado,<br/>mais perto.</strong><span>Ofertas da semana</span></div>
+          <div className="phone-section"><strong>O que você procura?</strong><span>Ver tudo</span></div>
+          <div className="phone-categories"><div><span>✚</span><small>Saúde</small></div><div><span>♡</span><small>Cuidados</small></div><div><span>☼</span><small>Beleza</small></div></div>
+          <div className="phone-section products-title"><strong>Mais procurados</strong><span>Ver todos</span></div>
+          <div className="phone-products"><div className="product-illustration product-one">◒</div><div><strong>Kit cuidado diário</strong><small>R$ 39,90</small></div><b>+</b></div>
+          <div className="phone-bottom"><span>⌂<small>Início</small></span><span>⌕<small>Buscar</small></span><span>♡<small>Favoritos</small></span><span>▢<small>Pedidos</small></span></div>
+        </div>
+        <div className="floating-brand brand-pizza"><span>✳</span><div><strong>pizzaria</strong><small>Seu app, sua identidade</small></div></div>
+        <div className="floating-brand brand-market"><span>⌂</span><div><strong>mercadinho</strong><small>Do seu jeito</small></div></div>
+        <div className="visual-caption">EXEMPLO ILUSTRATIVO DE UMA LOJA NA DOVA</div>
+      </div>
+    </section>
+    <section className="entry-bottom" id="como-funciona">
+      <div className="entry-bottom-copy"><span className="eyebrow">SIMPLES ASSIM</span><h2>O espaço é seu.<br/>A tecnologia é nossa.</h2><p>A DOVA oferece a estrutura para sua empresa vender e atender pelo próprio aplicativo — sem dividir a vitrine com concorrentes.</p></div>
+      <form className="login-card" onSubmit={e => { e.preventDefault(); setLoginNotice("A entrada segura será ativada quando conectarmos a autenticação. Por enquanto, você pode conhecer o painel demonstrativo."); }}>
+        <div className="login-card-heading"><div className="login-lock"><LockKeyhole size={18}/></div><div><span className="eyebrow">ÁREA DO CLIENTE</span><h2>Que bom ter você aqui.</h2><p>Entre para administrar seu negócio.</p></div></div>
+        <label htmlFor="login-email">E-mail</label><input id="login-email" type="email" placeholder="voce@empresa.com.br" value={email} onChange={e => setEmail(e.target.value)} required/>
+        <div className="password-label"><label htmlFor="login-password">Senha</label><a href="#sobre">Esqueceu?</a></div><input id="login-password" type="password" placeholder="Sua senha" value={password} onChange={e => setPassword(e.target.value)} required/>
+        <button className="login-submit" type="submit">Entrar na minha conta <ArrowRight size={16}/></button>
+        {loginNotice && <p className="login-notice" role="status">{loginNotice}</p>}
+        <div className="login-divider"><span>ou</span></div><button type="button" className="demo-entry" onClick={() => setShowDashboard(true)}>Conhecer painel demonstrativo <ArrowUpRight size={15}/></button>
+        <p className="login-security"><ShieldCheck size={14}/> Seus dados e os da sua empresa, sempre separados.</p>
+      </form>
+    </section>
+    <footer className="entry-footer" id="sobre"><Brand/><span>© 2026 DOVA Tecnologia. Cada negócio, do seu jeito.</span><a href="https://github.com/lost1911/DOVA" target="_blank" rel="noreferrer">Projeto no GitHub <ArrowUpRight size={13}/></a></footer>
+  </main>;
 
   return <div className="app-shell">
     {sidebarOpen && <button className="scrim" aria-label="Fechar menu" onClick={() => setSidebarOpen(false)} />}
