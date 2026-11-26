@@ -4,7 +4,7 @@ import {
   ChevronLeft, ChevronRight, CircleHelp, ClipboardList, Clock3, Command,
   CreditCard, LayoutDashboard, LifeBuoy, Menu, Package, Plus, Search,
   Settings2, ShieldCheck, ShoppingBag, Sparkles, Store, Users, Wallet,
-  X, Zap, LockKeyhole, ArrowUpRight
+  X, Zap, LockKeyhole
 } from "lucide-react";
 
 type Section = "Visão geral" | "Aplicativos" | "Empresas" | "Pedidos" | "Produtos" | "Clientes" | "Planos" | "Configurações";
